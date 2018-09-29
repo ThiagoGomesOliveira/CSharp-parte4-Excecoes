@@ -12,7 +12,10 @@ namespace ByteBank
         {
             try
             {
-                ContaCorrente conta = new ContaCorrente(1,0);
+                ContaCorrente conta = new ContaCorrente(1,10);
+                conta.Depositar(200);
+                conta.Sacar(100);
+                Console.WriteLine(conta.Saldo);
             }
             catch (ArgumentException e)
             {

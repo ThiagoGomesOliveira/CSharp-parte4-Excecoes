@@ -26,14 +26,7 @@ namespace ByteBank
             this.Conta = conta;
             QtdContaCorrentes++;
         }
-
-
-
-        private int _agencia;
         public int Agencia { get; }
-        
-         
-        private int _conta;
         public int Conta { get; }
         private double _saldo;
         public double Saldo
@@ -79,9 +72,13 @@ namespace ByteBank
 
         private bool VerificarSaldo(double valor)
         {
+            if (valor < 0)
+            {
+                throw new ArgumentException("O valor de saque não pode ser negativo.",nameof(valor));
+            }
             if (this._saldo < valor)
             {
-                return false;
+                throw new SaldoInsuficienteException(this._saldo,valor);
             }
             return true;
         }
@@ -89,9 +86,10 @@ namespace ByteBank
 
         public void Transferir(double valor, ContaCorrente conta)
         {
+           
             if (VerificarSaldo(valor))
             {
-                this._saldo -= valor;
+                this.Sacar(valor);
                 conta.Depositar(valor);
             }
         }
