@@ -12,15 +12,13 @@ namespace ByteBank
         {
             try
             {
-                Metodo();
+                ContaCorrente conta = new ContaCorrente(1,0);
             }
-            catch (DivideByZeroException e)
-            {
-               Console.WriteLine("Não é possivel dividir por zero");
-
-            }catch (Exception e)
+            catch (ArgumentException e)
             {
                 Console.WriteLine(e.Message);
+                Console.WriteLine(e.ParamName);
+
             }
            
             Console.ReadLine();
@@ -36,7 +34,7 @@ namespace ByteBank
         }
         public static void Metodo()
         {
-                TestaDivisao(0,10);
+                TestaDivisao(0,0);
         }
 
         public static void TestaDivisao(int divisor, int numero)

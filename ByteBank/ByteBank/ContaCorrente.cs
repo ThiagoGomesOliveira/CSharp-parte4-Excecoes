@@ -13,6 +13,15 @@ namespace ByteBank
 
         public ContaCorrente(int agencia, int conta)
         {
+            if (agencia <= 0)
+            {
+                throw new ArgumentException("Argumento agencia deve ser maior que zero.", nameof(agencia));
+            }
+
+            if (conta <= 0)
+            {
+                throw new ArgumentException("Argumento conta deve ser maior que zero.",nameof(conta));
+            }
             this.Agencia = agencia;
             this.Conta = conta;
             QtdContaCorrentes++;
@@ -21,32 +30,11 @@ namespace ByteBank
 
 
         private int _agencia;
-        public int Agencia
-        {
-            get
-            {
-                return this._agencia;
-            }
-            set
-            {
-                if (value >= 0)
-                {
-                    this._agencia = value;
-                }
-            }
-        }
+        public int Agencia { get; }
+        
+         
         private int _conta;
-        public int Conta
-        {
-            get
-            {
-                return this._conta;
-            }
-            set
-            {
-                this._conta = value;
-            }
-        }
+        public int Conta { get; }
         private double _saldo;
         public double Saldo
         {
