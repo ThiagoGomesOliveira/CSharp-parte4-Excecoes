@@ -9,6 +9,8 @@ namespace ByteBank
     public class ContaCorrente
     {
         public static int QtdContaCorrentes { get;private set; }
+        public int aContadorSaquesNaoPermitidos { get; private set; }
+        public int aContadorTransferenciasNaoPermitida { get; private set; }
 
 
         public ContaCorrente(int agencia, int conta)
@@ -65,6 +67,7 @@ namespace ByteBank
         {
             if (VerificarSaldo(valor))
             {
+                aContadorSaquesNaoPermitidos++;
                 this._saldo -= valor;
             }
 
@@ -89,7 +92,15 @@ namespace ByteBank
            
             if (VerificarSaldo(valor))
             {
-                this.Sacar(valor);
+                try
+                {
+                    this.Sacar(valor);
+                }
+                catch (SaldoInsuficienteException e)
+                {
+                    aContadorTransferenciasNaoPermitida++;
+                    throw new OperacaoFinanceiraException("Operação não realizada.", e);
+                }
                 conta.Depositar(valor);
             }
         }
