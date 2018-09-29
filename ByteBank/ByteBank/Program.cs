@@ -10,6 +10,21 @@ namespace ByteBank
     {
         static void Main(string[] args)
         {
+            CarregarContas();
+            Console.ReadLine();
+        }
+
+        private static void CarregarContas()
+        {
+            using (LeitorDeArquivo leitor = new LeitorDeArquivo("contas.txt"))
+            {
+                leitor.LerProximaLinha();
+                leitor.LerProximaLinha();
+                leitor.LerProximaLinha();
+            }
+        }
+        public static void InnerException()
+        {
             try
             {
                 ContaCorrente conta1 = new ContaCorrente(4564, 789684);
@@ -29,10 +44,7 @@ namespace ByteBank
                 Console.WriteLine(e.InnerException.StackTrace);
             }
 
-            Console.ReadLine();
         }
-
-
         public static int Dividir(int numero, int divisor)
         {
             ContaCorrente conta = null;
@@ -44,7 +56,6 @@ namespace ByteBank
         {
                 TestaDivisao(0,0);
         }
-
         public static void TestaDivisao(int divisor, int numero)
         {
             try
